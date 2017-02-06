@@ -1,15 +1,19 @@
-%h1 Users#index
-- if @users.present?
-  %ul
-    - @users.each do |user|
-      %li= link_to user.name, missionboard_path(user_id: user.id)
-- else
-  %div Keine User vorhanden :(
+.container.marketing
 
-= form_for @user do |f|
-  %div
-    = f.label :name
-    = f.text_field :name
+  - if @users.present?
+    .row.users-list
+      - @users.each do |user|
+        .col-lg-4.labeled-image-box
+          = link_to missionboard_path(user_id: user.id) do
+            %img.img-circle{:alt => "Generic placeholder image", :height => "140", :src => "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==", :width => "140"}/
+            %h3= user.name
+  - else
+    %h3 Keine User vorhanden :(
 
-  %div
-    = f.submit
+  .new-user-form
+    %h4 Neuer User?
+    = form_for @user do |f|
+      = f.label :name
+      = f.text_field :name
+      = f.submit
+
