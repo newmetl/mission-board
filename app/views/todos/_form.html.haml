@@ -19,5 +19,8 @@
   .field
     = f.label :due_date
     = f.datetime_select :due_date
+  .field
+    = f.label :users
+    = f.collection_select :user_ids, @users, :id, :name, {}, { :multiple => true }
   .actions
     = f.submit
