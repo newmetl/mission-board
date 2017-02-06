@@ -5,7 +5,10 @@
       - @users.each do |user|
         .col-lg-4.labeled-image-box
           = link_to missionboard_path(user_id: user.id) do
-            %img.img-circle{:alt => "Generic placeholder image", :height => "140", :src => "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==", :width => "140"}/
+            - if user.photo.present?
+              = image_tag user.photo, style: 'width: 140px; height: 140px'
+            - else
+              %img.img-circle{:alt => "Generic placeholder image", :height => "140", :src => "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==", :width => "140"}/
             %h3= user.name
   - else
     %h3 Keine User vorhanden :(
@@ -15,4 +18,8 @@
     = form_for @user do |f|
       = f.label :name
       = f.text_field :name
+      %p
+        %label Photo
+        = f.file_field :photo
       = f.submit
+
