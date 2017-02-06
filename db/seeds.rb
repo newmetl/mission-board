@@ -8,3 +8,6 @@
 
 User.create(name: 'Peter')
 User.create(name: 'Susi')
+%w{Moderator Timekeeper Observer}.each do |name|
+  Role.create(name: name)
+end
