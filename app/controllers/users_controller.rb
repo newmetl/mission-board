@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
-    @user = User.new
+    if current_user.present?
+      redirect_to missionboard_path
+    else
+      @users = User.all
+      @user = User.new
+    end
   end
 
   def create

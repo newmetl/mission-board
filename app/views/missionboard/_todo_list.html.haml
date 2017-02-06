@@ -3,27 +3,21 @@
   %table.table.table-striped
     %thead
       %tr
-        %th #
-        %th Header
-        %th Header
-        %th Header
-        %th Header
+        %th Title
+        %th Desctiption
+        %th Status
+        %th Due Date
+        %th Asignees
+        %th{:colspan => "2"}
     %tbody
+      - @todos.each do |todo|
+        %tr
+          %td= todo.title
+          %td= todo.description
+          %td= todo.status
+          %td= todo.due_date
+          %td Asignees
+          %td= link_to 'Edit', edit_todo_path(todo)
+          %td= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }
       %tr
-        %td 1,001
-        %td Lorem
-        %td ipsum
-        %td dolor
-        %td sit
-      %tr
-        %td 1,002
-        %td amet
-        %td consectetur
-        %td adipiscing
-        %td elit
-      %tr
-        %td 1,003
-        %td Integer
-        %td nec
-        %td odio
-        %td Praesent
+        %td{ colspan: '7' }= link_to 'New Todo', new_todo_path

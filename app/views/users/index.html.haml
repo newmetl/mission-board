@@ -4,7 +4,7 @@
     .row.users-list
       - @users.each do |user|
         .col-lg-4.labeled-image-box
-          = link_to missionboard_path(user_id: user.id) do
+          = link_to enter_path(user_id: user.id) do
             - if user.photo.present?
               %span.user-photo{ style: "background-image: url(#{user.photo.url})" }
             - else
