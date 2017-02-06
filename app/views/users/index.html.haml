@@ -2,6 +2,14 @@
 - if @users.present?
   %ul
     - @users.each do |user|
-      %li= user.name
+      %li= link_to user.name, missionboard_path(user_id: user.id)
 - else
   %div Keine User vorhanden :(
+
+= form_for @user do |f|
+  %div
+    = f.label :name
+    = f.text_field :name
+
+  %div
+    = f.submit
