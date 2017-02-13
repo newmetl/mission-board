@@ -10,8 +10,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.mood = Mood.first
     if @user.save
-      redirect_to missionboard_path(user_id: @user.id)
+      redirect_to enter_path(user_id: @user.id)
     else
       render 'index'
     end
