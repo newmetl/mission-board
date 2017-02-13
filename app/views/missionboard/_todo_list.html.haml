@@ -8,7 +8,7 @@
         %th Status
         %th Due Date
         %th Asignees
-        %th{:colspan => "2"}
+        %th
     %tbody
       - @todos.each do |todo|
         %tr
@@ -17,7 +17,8 @@
           %td= todo.status
           %td= todo.due_date
           %td= todo.users.map(&:name).join(", ")
-          %td= link_to 'Edit', edit_todo_path(todo)
-          %td= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }
+          %td
+            = link_to 'Edit', edit_todo_path(todo), class: 'btn btn-sm btn-default'
+            = link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
       %tr
         %td{ colspan: '7' }= link_to '+ New Todo', new_todo_path
