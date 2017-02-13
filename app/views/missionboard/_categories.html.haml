@@ -7,11 +7,11 @@
           = link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default btn-sm'
         .panel-title= category.name
     .panel-body
-      .row
+      .posts-grid
         - category.posts.each do |post|
-          .col-sm-4.col-md-3
-            = render 'post', category: category, post: post
-        = link_to 'New Post', new_category_post_path(category), class: 'btn btn-primary'
+          = render 'post', category: category, post: post
+        .postbox
+          = link_to 'New Post', new_category_post_path(category), class: 'btn btn-primary'
 
 = link_to 'New Category', new_category_path
 

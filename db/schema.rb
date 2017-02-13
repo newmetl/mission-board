@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213084801) do
+ActiveRecord::Schema.define(version: 20170213130358) do
 
   create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "moods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,7 +31,9 @@ ActiveRecord::Schema.define(version: 20170213084801) do
     t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
     t.index ["category_id"], name: "index_posts_on_category_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -49,8 +57,10 @@ ActiveRecord::Schema.define(version: 20170213084801) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "photo"
+    t.string  "name"
+    t.string  "photo"
+    t.integer "mood_id"
+    t.index ["mood_id"], name: "index_users_on_mood_id"
   end
 
 end

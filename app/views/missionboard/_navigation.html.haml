@@ -18,7 +18,10 @@
       %ul.nav.navbar-nav.navbar-right
         %li.navigation-selector
           %span.label My Mood
-          = select_tag 'mood', options_from_collection_for_select(@users, "id", "name")
+          = form_for(current_user) do |f|
+            = select_tag 'user[mood_id]',
+              options_from_collection_for_select(@moods, "id", "name", current_user.mood.try(:id)),
+              onchange: "this.form.submit()"
         %li
           = link_to @user.name, ''
         %li

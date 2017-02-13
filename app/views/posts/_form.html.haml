@@ -16,5 +16,8 @@
   .field
     = f.label :file
     = f.file_field :file
+  .field
+    = f.label :user
+    = select_tag 'post[user_id]', options_from_collection_for_select(users, "id", "name", post.user.present? ? post.user.id : current_user.id)
   .actions
     = f.submit

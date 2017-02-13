@@ -1,5 +1,5 @@
 %h1 New Post
 %h3 for #{@category.name}
 
-= render 'form', post: @post, category: @category
+= render 'form', post: @post, category: @category, user: @users
 = link_to 'Back', missionboard_path

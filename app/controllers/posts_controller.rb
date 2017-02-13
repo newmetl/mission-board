@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_category
+  before_action :set_users, only: [:new, :edit]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
@@ -72,8 +73,12 @@ class PostsController < ApplicationController
       @category = Category.find(params[:category_id])
     end
 
+    def set_users
+      @users = User.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :file, :category_id)
+      params.require(:post).permit(:title, :body, :file, :category_id, :user_id)
     end
 end
