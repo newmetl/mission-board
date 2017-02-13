@@ -9,6 +9,7 @@ class MissionboardController < ApplicationController
     @users = User.all
     @roles = Role.all
     @todos = Todo.all
+    @categories = Category.all
   end
 
   def exit
