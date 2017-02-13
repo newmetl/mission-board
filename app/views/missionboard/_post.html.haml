@@ -11,4 +11,4 @@
     %p= simple_format post.body
     %p
       = link_to 'Edit', edit_category_post_path(category, post), class: 'btn btn-default btn-sm'
-      = link_to 'Delete', category_post_path(category, post), class: 'btn btn-danger btn-sm'
+      = link_to 'Delete', category_post_path(category, post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
