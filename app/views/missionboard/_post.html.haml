@@ -1,0 +1,14 @@
+.media.postbox
+  .media-left
+    - if current_user.photo.present?
+      = image_tag current_user.photo, class: 'postbox-thumb'
+    - else
+      = image_tag "http://lorempixel.com/g/64/64/", class: 'postbox-thumb'
+  .media-body
+    %h4.media-heading= post.title
+    - if post.file.present?
+      = image_tag post.file.url, class: 'postbox-image'
+    %p= post.body
+    %p
+      = link_to 'Edit', edit_category_post_path(category, post), class: 'btn btn-default btn-sm'
+      = link_to 'Delete', category_post_path(category, post), class: 'btn btn-danger btn-sm'
