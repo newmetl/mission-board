@@ -1,3 +1,5 @@
+ruby "2.3.1"
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -22,6 +24,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+gem 'rails_12factor', group: :production
 
 gem 'carrierwave', '~> 1.0'
 gem 'haml'
