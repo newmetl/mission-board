@@ -1,15 +1,56 @@
 class BoardsController < ApplicationController
-  before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_board, only: [:add_user, :remove_user, :enter, :exit, :users, :show, :edit, :update, :destroy]
+
+  def enter
+    session[:current_user_id] = params[:user_id]
+    session[:current_board_id] = params[:board_id]
+    redirect_to board_path(@board)
+  end
+
+  def add_user
+    @user = User.find(params[:user_id])
+    @board.users << @user
+    redirect_to board_enter_path(@board, user_id: @user.id)
+  end
+
+  def remove_user
+    @user = User.find(params[:user_id])
+    @board.users.delete(@user)
+    redirect_to board_users_path(@board)
+  end
+
+  def show
+    if (@user = current_user).present?
+      @users = User.all
+      @roles = Role.all
+      @todos = Todo.all
+      @categories = Category.all
+      @moods = Mood.all
+    else
+      redirect_to root_path
+    end
+  end
+
+  def exit
+    session[:current_user_id] = nil
+    session[:current_board_id] = nil
+    redirect_to board_users_path(@board)
+  end
 
   # GET /boards
   # GET /boards.json
   def index
-    @boards = Board.all
+    @boards = Board.order(:name)
   end
 
-  # GET /boards/1
-  # GET /boards/1.json
-  def show
+  def users
+    @user = User.new
+    @users = @board.users
+    if @users.empty?
+      @all_users = User.order(:name)
+    else
+      @all_users = User.where('id NOT IN (?)', @users.to_a).order(:name)
+    end
   end
 
   # GET /boards/new
@@ -64,7 +105,7 @@ class BoardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_board
-      @board = Board.find(params[:id])
+      @board = Board.find(params[:id] || params[:board_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

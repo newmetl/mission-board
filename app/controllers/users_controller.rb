@@ -1,30 +1,39 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = User.order(:name)
   end
 
-  def board_users
-    @users = User.all
+  def new
     @user = User.new
   end
 
   def create
     @user = User.new(user_params)
+    # TODO: Make mood optional
     @user.mood = Mood.first
-    if @user.save
-      redirect_to enter_path(user_id: @user.id)
+    if params[:commit] == 'Anlegen und Los!'
+      @board = Board.find(params[:board_id])
+      @user.boards << @board
+      if @user.save
+        redirect_to board_enter_path(@board, user_id: @user.id)
+      else
+        redirect_to board_users_path(@board)
+      end
     else
-      render 'index'
+      if @user.save
+        redirect_to users_path(user_id: @user.id)
+      else
+        render 'index'
+      end
     end
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to users_path
     else
@@ -38,6 +47,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :photo, :mood_id)

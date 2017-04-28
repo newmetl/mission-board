@@ -1,25 +1,33 @@
 .container.marketing
-
+  %p= link_to 'Back to Boards Overview', root_path
   - if @users.present?
     .row.users-list
       - @users.each do |user|
         .col-lg-4.labeled-image-box
-          = link_to enter_path(user_id: user.id) do
+          = link_to board_enter_path(@board, user_id: user.id) do
             - if user.photo.present?
               %span.user-photo{ style: "background-image: url(#{user.photo.url})" }
             - else
               %img.img-circle{:alt => "Generic placeholder image", :height => "140", :src => "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==", :width => "140"}/
             %h3= user.name
+            %p= link_to 'Entfernen', board_remove_user_path(@board, user_id: user.id), method: 'put'
   - else
     %h3 Keine User vorhanden :(
 
   .new-user-form
+    %h4 Als bestehender User
+    = form_tag board_add_user_path(@board) do
+      = label_tag 'Name' do
+        = select_tag "user_id", options_from_collection_for_select(@all_users, "id", "name")
+      = submit_tag 'Los!'
+
+  .new-user-form
     %h4 Neuer User?
     = form_for @user do |f|
+      = hidden_field_tag 'board_id', @board.id
       = f.label :name
       = f.text_field :name
       %br
         %label Photo
         = f.file_field :photo
-      = f.submit
-
+      = f.submit 'Anlegen und Los!'
