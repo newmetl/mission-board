@@ -5,9 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+default_user = User.create(name: 'Default')
 
 %w{Moderator Timekeeper Observer}.each do |name|
-  Role.create(name: name)
+  Role.create(name: name, user: default_user)
 end
 %w{green yellow red}.each do |name|
   Mood.create(name: name)
