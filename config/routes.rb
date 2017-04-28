@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post 'add-user'
     put 'remove-user'
     resources :moods
+    resources :roles
   end
   # resources :moods
   resources :categories do
