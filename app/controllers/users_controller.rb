@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to users_path
+      redirect_to params[:redirect_to] || users_path
     else
       render 'index'
     end

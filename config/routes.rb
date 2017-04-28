@@ -11,8 +11,9 @@ Rails.application.routes.draw do
     get 'exit'
     post 'add-user'
     put 'remove-user'
+    resources :moods
   end
-  resources :moods
+  # resources :moods
   resources :categories do
     resources :posts
   end

@@ -14,9 +14,8 @@
     <% @moods.each do |mood| %>
       <tr>
         <td><%= mood.name %></td>
-        <td><%= link_to 'Show', mood %></td>
-        <td><%= link_to 'Edit', edit_mood_path(mood) %></td>
-        <td><%= link_to 'Destroy', mood, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_board_mood_path(@board, mood) %></td>
+        <td><%= link_to 'Destroy', board_mood_path(@board, mood), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +23,5 @@
 
 <br>
 
-<%= link_to 'New Mood', new_mood_path %>
+<%= link_to 'New Mood', new_board_mood_path(@board) %>
+<%= link_to 'Back to Board', board_path(@board) %>

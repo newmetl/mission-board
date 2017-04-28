@@ -25,7 +25,7 @@ class BoardsController < ApplicationController
       @roles = Role.all
       @todos = Todo.all
       @categories = Category.all
-      @moods = Mood.all
+      @moods = @board.moods
     else
       redirect_to root_path
     end

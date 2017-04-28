@@ -15,15 +15,18 @@
             %span.label= role.name
             -# = select_tag role.name, options_from_collection_for_select(@users, "id", "name")
             = form_for(role) do |f|
+              = hidden_field_tag 'redirect_to', board_path(@board)
               = select_tag 'role[user_id]',
                 options_from_collection_for_select(@users, "id", "name", role.user.try(:id)),
                 onchange: "this.form.submit()"
 
 
       %ul.nav.navbar-nav.navbar-right
+        %li= link_to 'Moods', board_moods_path(@board)
         %li.navigation-selector
           %span.label My Mood
           = form_for(current_user) do |f|
+            = hidden_field_tag 'redirect_to', board_path(@board)
             = select_tag 'user[mood_id]',
               options_from_collection_for_select(@moods, "id", "name", current_user.mood.try(:id)),
               onchange: "this.form.submit()"

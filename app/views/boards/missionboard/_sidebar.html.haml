@@ -1,5 +1,7 @@
 %h4 Moods
-%ul.list-group
-  - @moods.each do |mood|
+
+- @moods.each do |mood|
+  %h6= mood.name
+  %ul.list-group
     - mood.users.each do |user|
       %li.list-group-item{ class: class_for_mood(mood) }=user.name

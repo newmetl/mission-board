@@ -1,10 +1,11 @@
 class MoodsController < ApplicationController
   before_action :set_mood, only: [:show, :edit, :update, :destroy]
+  before_action :set_board, only: [:index, :create, :destroy, :edit, :update, :new]
 
   # GET /moods
   # GET /moods.json
   def index
-    @moods = Mood.all
+    @moods = @board.moods
   end
 
   # GET /moods/1
@@ -24,11 +25,11 @@ class MoodsController < ApplicationController
   # POST /moods
   # POST /moods.json
   def create
-    @mood = Mood.new(mood_params)
+    @mood = @board.moods.build(mood_params)
 
     respond_to do |format|
       if @mood.save
-        format.html { redirect_to @mood, notice: 'Mood was successfully created.' }
+        format.html { redirect_to board_moods_path(@board), notice: 'Mood was successfully created.' }
         format.json { render :show, status: :created, location: @mood }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class MoodsController < ApplicationController
   def update
     respond_to do |format|
       if @mood.update(mood_params)
-        format.html { redirect_to @mood, notice: 'Mood was successfully updated.' }
+        format.html { redirect_to board_moods_path(@board), notice: 'Mood was successfully updated.' }
         format.json { render :show, status: :ok, location: @mood }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class MoodsController < ApplicationController
   def destroy
     @mood.destroy
     respond_to do |format|
-      format.html { redirect_to moods_url, notice: 'Mood was successfully destroyed.' }
+      format.html { redirect_to board_moods_url(@board), notice: 'Mood was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +66,10 @@ class MoodsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_mood
       @mood = Mood.find(params[:id])
+    end
+
+    def set_board
+      @board = Board.find(params[:board_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
