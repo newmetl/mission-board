@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
+
   def index
-    if current_user.present?
-      redirect_to missionboard_path
-    else
-      @users = User.all
-      @user = User.new
-    end
+    @users = User.all
+  end
+
+  def board_users
+    @users = User.all
+    @user = User.new
   end
 
   def create
@@ -18,15 +19,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      redirect_to missionboard_path
+      redirect_to users_path
     else
       render 'index'
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to users_path
+  end
 
   private
 

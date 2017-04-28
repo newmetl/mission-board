@@ -1,25 +1,17 @@
-.container.marketing
-
-  - if @users.present?
-    .row.users-list
-      - @users.each do |user|
-        .col-lg-4.labeled-image-box
-          = link_to enter_path(user_id: user.id) do
-            - if user.photo.present?
-              %span.user-photo{ style: "background-image: url(#{user.photo.url})" }
-            - else
-              %img.img-circle{:alt => "Generic placeholder image", :height => "140", :src => "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==", :width => "140"}/
-            %h3= user.name
-  - else
-    %h3 Keine User vorhanden :(
-
-  .new-user-form
-    %h4 Neuer User?
-    = form_for @user do |f|
-      = f.label :name
-      = f.text_field :name
-      %br
-        %label Photo
-        = f.file_field :photo
-      = f.submit
-
+%p#notice= notice
+%p= link_to 'Back', root_path
+%h1 Users
+%table
+  %thead
+    %tr
+      %th Name
+      %th{:colspan => "3"}
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.name
+        %td= link_to 'Show', user
+        %td= link_to 'Edit', edit_user_path(user)
+        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New User', new_user_path
