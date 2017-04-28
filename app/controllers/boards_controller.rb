@@ -21,10 +21,10 @@ class BoardsController < ApplicationController
 
   def show
     if (@user = current_user).present?
-      @users = User.all
-      @roles = Role.all
-      @todos = Todo.all
-      @categories = Category.all
+      @users = @board.users
+      @roles = @board.roles
+      @todos = @board.todos
+      @categories = @board.categories
       @moods = @board.moods
     else
       redirect_to root_path
