@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :boards
   resources :moods
   resources :categories do
     resources :posts
@@ -9,5 +10,5 @@ Rails.application.routes.draw do
   get '/enter' => 'missionboard#enter', as: 'enter'
   get '/missionboard' => 'missionboard#show', as: 'missionboard'
   get '/exit' => 'missionboard#exit', as: 'exit'
-  root 'users#index'
+  root 'boards#index'
 end
