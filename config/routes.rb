@@ -13,13 +13,11 @@ Rails.application.routes.draw do
     put 'remove-user'
     resources :moods
     resources :roles
+    resources :todos
+    resources :categories do
+      resources :posts
+    end
   end
-  # resources :moods
-  resources :categories do
-    resources :posts
-  end
-  resources :todos
-  resources :roles
 
   root 'boards#index'
 end

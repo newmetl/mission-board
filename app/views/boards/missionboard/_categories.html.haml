@@ -3,8 +3,8 @@
     .panel-heading
       %h3
         %span.pull-right
-          = link_to 'Edit', edit_category_path(category), class: 'btn btn-default btn-sm'
-          = link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default btn-sm'
+          = link_to 'Edit', edit_board_category_path(@board, category), class: 'btn btn-default btn-sm'
+          = link_to 'Destroy', board_category_path(@board, category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default btn-sm'
         .panel-title= category.name
     .panel-body
       .posts-grid
@@ -12,6 +12,6 @@
           = render 'boards/missionboard/post', category: category, post: post
         .media.postbox
           %p
-            = link_to 'New Post', new_category_post_path(category), class: 'btn btn-primary'
+            = link_to 'New Post', new_board_category_post_path(@board, category), class: 'btn btn-primary'
 
-= link_to 'New Category', new_category_path, class: 'btn btn-default'
+= link_to 'New Category', new_board_category_path(@board), class: 'btn btn-default'

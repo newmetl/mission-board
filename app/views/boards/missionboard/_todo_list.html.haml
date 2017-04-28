@@ -18,7 +18,7 @@
           %td= todo.due_date
           %td= todo.users.map(&:name).join(", ")
           %td
-            = link_to 'Edit', edit_todo_path(todo), class: 'btn btn-sm btn-default'
-            = link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+            = link_to 'Edit', edit_board_todo_path(@board, todo), class: 'btn btn-sm btn-default'
+            = link_to 'Destroy', board_todo_path(@board, todo), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
       %tr
-        %td{ colspan: '7' }= link_to '+ New Todo', new_todo_path, class: 'btn btn-primary'
+        %td{ colspan: '7' }= link_to '+ New Todo', new_board_todo_path(@board), class: 'btn btn-primary'

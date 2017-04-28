@@ -1,11 +1,12 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_board, only: [:index, :create, :destroy, :edit, :update, :new]
   before_action :set_users, only: [:edit, :new]
 
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = @board.todos
   end
 
   # GET /todos/1
@@ -25,11 +26,11 @@ class TodosController < ApplicationController
   # POST /todos
   # POST /todos.json
   def create
-    @todo = Todo.new(todo_params)
+    @todo = @board.todos.build(todo_params)
 
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to missionboard_path, notice: 'Todo was successfully created.' }
+        format.html { redirect_to board_path(@board), notice: 'Todo was successfully created.' }
         format.json { render :show, status: :created, location: @todo }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class TodosController < ApplicationController
   def update
     respond_to do |format|
       if @todo.update(todo_params)
-        format.html { redirect_to missionboard_path, notice: 'Todo was successfully updated.' }
+        format.html { redirect_to board_path(@board), notice: 'Todo was successfully updated.' }
         format.json { render :show, status: :ok, location: @todo }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class TodosController < ApplicationController
   def destroy
     @todo.destroy
     respond_to do |format|
-      format.html { redirect_to missionboard_path, notice: 'Todo was successfully destroyed.' }
+      format.html { redirect_to board_path(@board), notice: 'Todo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,8 +69,12 @@ class TodosController < ApplicationController
       @todo = Todo.find(params[:id])
     end
 
+    def set_board
+      @board = Board.find(params[:board_id])
+    end
+
     def set_users
-      @users = User.all
+      @users = @board.users
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

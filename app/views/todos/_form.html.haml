@@ -1,4 +1,4 @@
-= form_for(todo) do |f|
+= form_for([@board, todo]) do |f|
   - if todo.errors.any?
     #error_explanation
       %h2
